@@ -29,4 +29,15 @@
  */
 export function maskAadhaar(aadhaarNumber) {
   // Your code here
+  if(typeof aadhaarNumber !== "string") return 'INVALID';
+  if(aadhaarNumber.length !== 12) return 'INVALID';
+  if(!/^\d{12}$/.test(aadhaarNumber)) return 'INVALID';
+  
+
+  // Get last 4 digit
+  const laftFourDigit = aadhaarNumber.slice(-4)
+
+  //Build masked output: xxxx-xxxx-laftFourDigit
+  return `XXXX-XXXX-${laftFourDigit}`
+
 }

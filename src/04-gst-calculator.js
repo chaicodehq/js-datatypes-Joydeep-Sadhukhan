@@ -40,4 +40,33 @@
  */
 export function calculateGST(amount, category) {
   // Your code here
+  if(!Number.isFinite(amount) || amount < 0) return null;
+
+  if(amount < 1) return null;
+
+  if(typeof category !== 'string') return null;
+
+  const rates = {
+    essential: 0,
+    food: 5,
+    standard: 12,
+    electronics: 18,
+    luxury: 28,
+  }
+
+  const categoryLowerCase = category.toLowerCase();
+
+  if(!(categoryLowerCase in rates)) return null;
+
+  const gstRate = rates[categoryLowerCase];
+
+  const gstAmount = parseFloat((amount * gstRate / 100).toFixed(2));
+  const totalAmount = parseFloat((amount + gstAmount).toFixed(2));
+
+  return{
+    baseAmount: amount,
+    gstRate: gstRate,
+    gstAmount: gstAmount,
+    totalAmount: totalAmount
+  }
 }
